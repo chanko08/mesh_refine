@@ -10,6 +10,8 @@ import System.Console.GetOpt (
     )
 
 
+import qualified Obj
+
 main = do
     args  <- getArgs
     options <- case getOpt RequireOrder options args of
@@ -30,7 +32,7 @@ options = [
     ]
 
 
-header  = "Usage: main [OPTION...]"
+header  = "Usage: ObjLoader [OPTION...]"
 
 
 version = "ObjLoader v0.1"
@@ -42,6 +44,8 @@ execOption Help    = putStrLn $ usageInfo header options
 execOption (Input objFile) = do
     putStrLn $ "The file name is " ++ objFile
     contents <- readFile objFile
-    let ls = lines contents
-    print ls
     
+    putStrLn $ "Attempting to read OBJ file"
+    let objFileContents = Obj.loadObjFile contents
+    putStrLn $ "Read the OBJ file"
+    print objFileContents
