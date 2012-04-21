@@ -62,11 +62,16 @@ def save_obj(fname, faces, vertices = None):
             f.write(face)
  
 if __name__ == "__main__":
-    if "-o" not in sys.argv:
-        print "expecting obj file"
+    if len(sys.argv) != 2 and len(sys.argv) != 4:
+        print """usage: obj [OPTIONS] FILE
+Outputs Wavefront OBJ graphics file in a more human readable format
+
+Options:
+    -p     Re-output OBJ file into another specified file
+"""
         sys.exit(1)
 
-    obj = sys.argv[sys.argv.index("-o") + 1]
+    obj = sys.argv[-1]
     faces, vertices = load_obj(obj)
 
     if "-p" in sys.argv:
@@ -76,7 +81,7 @@ if __name__ == "__main__":
     for i,f in enumerate(faces):
         print "FACE #{0}".format(i)
         print f
-
+ 
 
                 
 
