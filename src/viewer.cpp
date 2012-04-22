@@ -124,8 +124,6 @@ void Viewer::display(){
 
 //mouse click
 void Viewer::mouse(int button, int state, int x, int y){
-    cout << "button" << button << endl;
-    cout << "cam pos: " << cam_pos << endl;
     //for mouse click
     if(button == 3){
         cam_pos -= 0.1f;
@@ -221,7 +219,6 @@ void Viewer::computeDepth(void){
 
     depth = m;
     cam_pos = depth + 4;
-    cout << "depth is" << depth << endl;
 }
 
 
@@ -243,5 +240,4 @@ void Viewer::computeCenter(void){
     center[1] /= (float) size;
     center[2] /= (float) size;
 
-    cout << "center is: " << center[0] << ", " << center[1] << ", " << center[2] << endl;
 }
