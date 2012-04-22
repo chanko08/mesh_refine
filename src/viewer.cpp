@@ -189,8 +189,6 @@ void Viewer::saveAngles(){
     old_yaw = yaw;
 }
 
-void Viewer::keyboard(unsigned char key, int x, int y){}
-
 
 GLenum Viewer::getBeginParam(unsigned int i){
     if(i == 3){

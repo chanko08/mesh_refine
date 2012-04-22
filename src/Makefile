@@ -12,9 +12,14 @@ viewerSource = viewer.cpp obj.cpp quaternion.cpp runViewer.cpp
 viewerHeader = viewer.h quaternion.h
 viewerExec = viewer
 
-executables = $(readObjExec) $(viewerExec)
+simplifySource = simplify.cpp obj.cpp runSimplify.cpp
+simplifyHeader = obj.h simplify.h
+simplifyExec = simplify
 
-all: obj viewer
+
+executables = $(readObjExec) $(viewerExec) $(simplifyExec)
+
+all: $(executables)
 
 clean:
 	rm -f $(executables)
@@ -25,3 +30,6 @@ obj: $(readObjSource) $(readObjHeader)
 
 viewer: $(viewerSource) $(viewerHeader)
 	$(CC) -o $(viewerExec) $(FLAGS) $(LIBS) $(viewerSource)
+
+simplify: $(simplifySource) $(simplifyHeader)
+	$(CC) -o $(simplifyExec) $(FLAGS) $(simplifySource)

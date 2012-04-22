@@ -21,10 +21,6 @@ void myMouseMotion(int x, int y){
 
 }
 
-void myKeyboard(unsigned char key, int x, int y){
-    viewer.keyboard(key, x, y);
-}
-
 void myResize(int width, int height){
     viewer.resize(width, height);
 }
@@ -59,7 +55,7 @@ int main(int argc, char** argv)
     //register the callback function
     glutDisplayFunc(myDisplay); 
     glutMouseFunc(myMouse); 
-    glutKeyboardFunc(myKeyboard);
+    //glutKeyboardFunc(myKeyboard);
     glutMotionFunc(myMouseMotion);
     glutReshapeFunc(myResize);
     

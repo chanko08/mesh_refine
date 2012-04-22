@@ -15,7 +15,6 @@ class Viewer {
     void mouse(int x, int y);
 
 
-    void keyboard(unsigned char key, int x, int y);
 
     void resize(int width, int height);
 
