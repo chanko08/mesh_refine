@@ -6,6 +6,7 @@
 class ObjFile {
     public:
     ObjFile(char *fname);
+
     ~ObjFile(void);
 
     std::vector<int> getFace(int i);
@@ -16,6 +17,7 @@ class ObjFile {
     unsigned int numFaces(void);
     unsigned int numVertices(void);
 
+    static void saveToObj(char *fname, ObjFile obj);
     private:
     std::vector<std::vector<int> > faces;
     std::vector<std::vector<float> > vertices;

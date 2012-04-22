@@ -45,5 +45,7 @@ int main(int argc, char **argv){
         outfile = argv[4];
     }
 
-    Mesh m(infile);
+    Simplify simplify;
+    simplify.load(infile);
+    simplify.save(outfile);
 }

@@ -8,10 +8,12 @@ static void usage(void){
     cout << "Usage: obj [OPTIONS] FILE" << endl;
     cout << "Outputs Wavefron OBJ graphics file in a more human readable format" << endl;
     cout << "Options:" << endl;
-    cout << "    -p      Re-output OBJ file into another file" << endl;
+    cout << "    -p  OUTFILE    Re-output OBJ file into another file" << endl;
     exit(1);
 }
 
+
+string p("-p");
 int main(int argc, char **argv){
     if(argc != 2 && argc != 4){
         usage();
@@ -19,7 +21,13 @@ int main(int argc, char **argv){
 
     char *file = argv[argc - 1];
     ObjFile obj(file);
-
+    
+    if(argc == 4 && p.compare(argv[1]) == 0){
+        cout << "saving mesh ..." << endl;
+        char *outfile = argv[2];
+        ObjFile::saveToObj(outfile, obj);
+        exit(0);
+    }
 
     {
         cout << "face" << endl;

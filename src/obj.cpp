@@ -1,5 +1,6 @@
 #include <fstream>
 #include <sstream>
+#include <iostream>
 #include <vector>
 #include <string>
 #include <cassert>
@@ -43,11 +44,13 @@ void ObjFile::addVector(string vec){
     vector<float> vertex;
     float val;
 
-    str >> val;
+    str >> skipws >> val;
     vertex.push_back(val);
-    str >> val;
+
+    str >> skipws  >> val;
     vertex.push_back(val);
-    str >> val;
+
+    str >> skipws >> val;
     vertex.push_back(val);
 
     vertices.push_back(vertex);
@@ -101,4 +104,37 @@ unsigned int ObjFile::numFaces(void){
 
 unsigned int ObjFile::numVertices(void){
     return vertices.size();
+}
+
+
+void ObjFile::saveToObj(char *fname, ObjFile obj){
+    ofstream file;
+    file.open(fname);
+
+    {
+        vector<vector<float> >::iterator it;
+        for(it = obj.vertices.begin(); it != obj.vertices.end(); it++){
+            vector<float>::iterator it2;
+            file << "v";
+            for(it2 = it->begin(); it2 != it->end(); it2++){
+                file << " " <<  *it2;
+            }
+            file << endl;
+        }
+    }
+
+
+    
+    {
+        vector<vector<int> >::iterator it;
+        for(it = obj.faces.begin(); it != obj.faces.end(); it++){
+            vector<int>::iterator it2;
+            file << "f";
+            for(it2 = it->begin(); it2 != it->end(); it2++){
+                file << " " << (*it2) + 1;
+            } 
+            file << endl;
+        }
+    }
+    file.close();
 }
