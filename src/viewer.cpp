@@ -28,8 +28,12 @@ Viewer::Viewer(){
 
 Viewer::~Viewer(){}
 
-void Viewer::init(char *fname){
+void Viewer::init(char *fname, bool lines){
     obj = new ObjFile(fname);
+    drawLines = lines;
+
+    computeDepth();
+    computeCenter();
 
     glClearColor(1,1,1,1);
     glEnable(GL_DEPTH_TEST);
@@ -77,6 +81,7 @@ void Viewer::display(){
 
 
 
+    glTranslatef(-center[0], -center[1], -center[2]);
     glColor3f(1,0,0);
     for(unsigned int i = 0; i < obj->numFaces(); i++){
         vector<vector<float> > verts = obj->getFaceVertices(i);
@@ -94,25 +99,26 @@ void Viewer::display(){
             glEnd();
         }
 
-        //draw the shape with an outline
-        glPolygonMode(GL_FRONT, GL_LINE);
-        glDepthFunc(GL_LEQUAL);
-        glColor3f(0,0,0);
-    
-        glBegin(begin);
-        {    
-            vector<vector<float> >::iterator it;
-            for(it = verts.begin(); it != verts.end(); it++){
-                vector<float> v = *it;
-                glVertex3f(v[0], v[1], v[2]);
+        if(drawLines){
+            //draw the shape with an outline
+            glPolygonMode(GL_FRONT, GL_LINE);
+            glDepthFunc(GL_LEQUAL);
+            glColor3f(0,0,0);
+            glBegin(begin);
+            {    
+                vector<vector<float> >::iterator it;
+                for(it = verts.begin(); it != verts.end(); it++){
+                    vector<float> v = *it;
+                    glVertex3f(v[0], v[1], v[2]);
+                }
             }
+            glEnd();
+            glPolygonMode(GL_FRONT,GL_FILL);
+            glDepthFunc(GL_LESS);
         }
-        glEnd();
-        glPolygonMode(GL_FRONT,GL_FILL);
-        glDepthFunc(GL_LESS);
 
     }
-
+    
     glutSwapBuffers();
 }
 
@@ -122,12 +128,12 @@ void Viewer::mouse(int button, int state, int x, int y){
     cout << "cam pos: " << cam_pos << endl;
     //for mouse click
     if(button == 3){
-        cam_pos -= 0.1;
+        cam_pos -= 0.1f;
         glutPostRedisplay();
         return;
     }
     else if(button == 4){
-        cam_pos += 0.1;
+        cam_pos += 0.1f;
         glutPostRedisplay();
         return;
     }
@@ -196,4 +202,46 @@ GLenum Viewer::getBeginParam(unsigned int i){
         return GL_QUADS;
     }
     return GL_POLYGON;
+}
+
+
+void Viewer::computeDepth(void){
+    float m = 0;
+    for(unsigned int i = 0; i < obj->numVertices(); i++){
+        vector<float> v = obj->getVertex(i);
+
+        if(v[0] > m)
+            m = v[0];
+        if(v[1] > m)
+            m = v[1];
+        if(v[2] > m)
+            m = v[2];
+    }
+
+
+    depth = m;
+    cam_pos = depth + 4;
+    cout << "depth is" << depth << endl;
+}
+
+
+void Viewer::computeCenter(void){
+    center.push_back(0);
+    center.push_back(0);
+    center.push_back(0);
+
+    unsigned int size = obj->numVertices();
+    for(unsigned int i = 0; i < size; i++){
+        vector<float> v = obj->getVertex(i);
+        center[0] += v[0];
+        center[1] += v[1];
+        center[1] += v[2];
+    }
+
+
+    center[0] /= (float) size;
+    center[1] /= (float) size;
+    center[2] /= (float) size;
+
+    cout << "center is: " << center[0] << ", " << center[1] << ", " << center[2] << endl;
 }

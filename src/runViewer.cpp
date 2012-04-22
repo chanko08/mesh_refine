@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <cstdlib>
 #include <GL/glut.h>
 #include <GL/glu.h>
@@ -29,14 +30,22 @@ void myResize(int width, int height){
 }
 
 void usage(void){
-    cout << "usage: viewer FILE" << endl;
+    cout << "usage: viewer [OPTIONS] FILE" << endl;
+    cout << "Displays the inputted Wavefront OBJ file" << endl;
+    cout << "Options:" << endl;
+    cout << "    -nl     Displays mesh with no lines being drawn to distinguish faces" << endl;
     exit(1);
 }
 
+
+string noLines("-nl");
 int main(int argc, char** argv) 
 {
-    if(argc != 2)
+    if(argc != 2 && argc != 3)
        usage();
+
+    if(argc == 3 && noLines.compare(argv[1]))
+       usage(); 
 
 
     const int screenWidth = 800;
@@ -53,8 +62,11 @@ int main(int argc, char** argv)
     glutKeyboardFunc(myKeyboard);
     glutMotionFunc(myMouseMotion);
     glutReshapeFunc(myResize);
-
-    viewer.init(argv[1]);
+    
+    if(argc == 2)
+        viewer.init(argv[1], true);
+    else
+        viewer.init(argv[2], false);
 
     glutMainLoop(); //go into a perpetual loop
     

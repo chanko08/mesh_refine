@@ -1,4 +1,5 @@
 #include <GL/glut.h>
+#include <vector>
 #include "obj.h"
 
 class Viewer {
@@ -6,7 +7,7 @@ class Viewer {
     Viewer(void);
     ~Viewer(void);
 
-    void init(char *objfilename);
+    void init(char *objfilename, bool drawLines);
     void display(void); 
 
     //mouse click and motion
@@ -19,11 +20,14 @@ class Viewer {
     void resize(int width, int height);
 
     private:
+    bool drawLines;
     ObjFile *obj;
 
     GLenum getBeginParam(unsigned int i);
     void changeAngles();
     void saveAngles();
+    void computeDepth();
+    void computeCenter();
 
     float cam_pos;
 
@@ -42,4 +46,7 @@ class Viewer {
     int yaw;
     int old_yaw;
 
+    float depth;
+
+    std::vector<float> center;
 };

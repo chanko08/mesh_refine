@@ -8,7 +8,7 @@ static void usage(void){
     cout << "Usage: obj [OPTIONS] FILE" << endl;
     cout << "Outputs Wavefron OBJ graphics file in a more human readable format" << endl;
     cout << "Options:" << endl;
-    cout << "    -p    Re-output OBJ file into another file" << endl;
+    cout << "    -p      Re-output OBJ file into another file" << endl;
     exit(1);
 }
 
