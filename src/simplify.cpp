@@ -80,9 +80,6 @@ void Simplify::save(char *fname){
     }
     
     file.close();
-
-    cout << "there are " << clusters.size() << " clusters" << endl;
-    cout << (unsigned int) -1 << endl;
 }
 
 
