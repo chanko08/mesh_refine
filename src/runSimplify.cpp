@@ -11,7 +11,7 @@ void usage(void){
     cout << "usage: simplify [OPTIONS] INPUT_FILE OUTPUT_FILE" << endl;
     cout << "Runs vertex clustering on the input mesh and outputs the refined mesh" << endl;
     cout << "Options" << endl;
-    cout << "    -r NUM  Refines the mesh NUM times. Defaults to 10" << endl;
+    cout << "    -r NUM  Refines the mesh with cell radius NUM. Defaults to 0.001" << endl;
     exit(1);
 }
 
@@ -25,14 +25,11 @@ int main(int argc, char **argv){
        usage();
 
 
-    int mesh_refinement = 10;
+    float mesh_refinement = 0.001f;
     if(argc == 5){
        stringstream s(argv[2]);
        s >> mesh_refinement;
     }
-
-    if(mesh_refinement < 1)
-        usage();
 
     char *infile;
     char *outfile;
@@ -45,7 +42,8 @@ int main(int argc, char **argv){
         outfile = argv[4];
     }
 
-    Simplify simplify;
+    Simplify simplify(mesh_refinement);
     simplify.load(infile);
+    simplify.cluster();
     simplify.save(outfile);
 }

@@ -82,3 +82,12 @@ void Mesh::save(char *fname){
 
     file.close();
 }
+
+
+unsigned int Mesh::numVertices(){
+    return num_vertices;
+}
+
+unsigned int Mesh::numFaces(){
+    return num_faces;
+}

@@ -12,8 +12,8 @@ viewerSource = viewer.cpp obj.cpp quaternion.cpp runViewer.cpp
 viewerHeader = viewer.h quaternion.h
 viewerExec = viewer
 
-simplifySource = simplify.cpp obj.cpp runSimplify.cpp mesh.cpp
-simplifyHeader = obj.h simplify.h mesh.h
+simplifySource = simplify.cpp obj.cpp runSimplify.cpp mesh.cpp cluster.cpp
+simplifyHeader = obj.h simplify.h mesh.h cluster.h
 simplifyExec = simplify
 
 

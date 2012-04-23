@@ -11,17 +11,20 @@ class Mesh {
 
 
     void save(char *fname);
-
-    private:
+    unsigned int numFaces();
+    unsigned int numVertices();
 
     face_t *faces;
+    vertex_t *vertices;
+
+    bool* getEdges(int i);
+
+
+    private:
+    unsigned int num_vertices;
     unsigned int num_faces;
 
-    vertex_t *vertices;
-    unsigned int num_vertices;
-
     bool *edges;
-    bool* getEdges(int i);
 
 };
 #endif
