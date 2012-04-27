@@ -3,6 +3,8 @@ CC=g++
 FLAGS=-Wall -g -Wconversion -Wextra
 LIBS=-lGLEW -lglut -lX11 -lGL -lGLU
 
+OUTDIR=../bin
+
 #the obj program source, headers and executable name
 readObjSource = readObj.cpp obj.cpp
 readObjHeader = obj.h
@@ -22,14 +24,14 @@ executables = $(readObjExec) $(viewerExec) $(simplifyExec)
 all: $(executables)
 
 clean:
-	rm -f $(executables)
+	rm -f $(OUTDIR)/$(readObjExec) $(OUTDIR)/$(viewerExec) $(OUTDIR)/$(simplifyExec)
 
 
 obj: $(readObjSource) $(readObjHeader)
-	$(CC) -o $(readObjExec) $(FLAGS) $(readObjSource)
+	$(CC) -o $(OUTDIR)/$(readObjExec) $(FLAGS) $(readObjSource)
 
 viewer: $(viewerSource) $(viewerHeader)
-	$(CC) -o $(viewerExec) $(FLAGS) $(LIBS) $(viewerSource)
+	$(CC) -o $(OUTDIR)/$(viewerExec) $(FLAGS) $(LIBS) $(viewerSource)
 
 simplify: $(simplifySource) $(simplifyHeader)
-	$(CC) -o $(simplifyExec) $(FLAGS) $(simplifySource)
+	$(CC) -o $(OUTDIR)/$(simplifyExec) $(FLAGS) $(simplifySource)

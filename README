@@ -1,0 +1,45 @@
+Mesh Compression with Vertex Clustering
+Alex Bechanko
+atbechan@mtu.edu
+
+
+CD STRUCTURE:
+The cd has 3 folders:
+    src    - The directory that contains all source code for this project.
+             Code for this project is written in C++, with a little bit of C
+             in order to use the GLUT and OpenGL libraries.
+             
+
+    bin    - The directory that the compilation process places executables.
+
+
+    meshes - The directory that contains all the sample meshes available for
+             this project. All the meshes contained in this folder are 
+             Wavefront OBJ file format.
+
+
+GENERATION OF EXECUTABLES:
+In the top directory "mesh_refine", run the command:
+    make
+
+This will create all the binaries associated with this project. If you wish to 
+compile them separately, there are three executables to make:
+
+
+VIEWER:
+    The executable used for viewing OBJ file format meshes. To compile this
+    run the command:
+
+        make viewer
+
+OBJ:
+    The executable used for testing the OBJ file format libraries, as well as
+    a more complex copying of OBJ files. To compile this run the command:
+        
+        make obj
+
+SIMPLIFY:
+    The heart of the project, this executable performs mesh simplification on
+    the OBJ files of your choice. To compile this, run the command:
+    
+        make simplify
